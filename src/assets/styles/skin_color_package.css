@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* 皮肤 */
+/* themeColor => 主色 */
+/* assistantColor => 副色 */
+/******************** 背景 ********************/
+/*按钮颜色*/
+.skin.btn_skin_themColor, .skin.btn_skin_themColor:hover, .skin.btn_skin_themColor:focus {
+    background: #258FED !important;
+    color: #fff !important;
+}
+
+/*字体颜色*/
+.skin.font_skin_themeColor {
+    color: #258FED !important;
+}
+
+/*透明背景边框按钮*/
+.skin.btn_border_skin_themColors, .skin.btn_border_skin_themColors:hover, .skin.btn_border_skin_themColors:focus {
+    border: 1px solid #258FED !important;
+    background: transparent !important;
+    color: #258FED !important;
+}
+
+/*单选框颜色*/
+.radio_skin_color input[type="radio"]:checked + label::after {
+    background-color: #258FED;
+}
+
+/*被选中时字体颜色*/
+.skin.font_skin_themeColor_active.active a, .skin.font_skin_themeColor_active.active .a, .skin.font_skin_themeColor_active.active {
+    color: #258FED !important;
+}
+
+/*被选中时的背景颜色*/
+.skin.bg_skin_themColor_active.active{
+    background: #258FED !important;
+    color:#fff;
+}
+
+/*被选中时子元素的边框颜色*/
+.skin.border_skin_theColor_active.active .border_color{
+    border-color: #258FED !important;
+}
+/*被选中时的边框颜色*/
+.skin.border_at_skin_theColor_active.active{
+    border-color: #258FED !important;
+}
+
+/*边框颜色*/
+.skin.border_at_skin_theColor{
+    border-color: #258FED !important;
+}
+
+
+/*边框颜色伪元素颜色*/
+.skin.border_fake_skin_theColor::before{
+    border-color: #258FED !important;
+}

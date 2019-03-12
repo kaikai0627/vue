@@ -1,0 +1,329 @@
+@import './varibles.styl'
+#app
+    overflow-x: hidden;
+body
+    font: .28rem -apple-system, Helvetica, Arial, Tahoma, "PingFang SC", "Hiragino Sans GB", "Lantinghei SC", "Microsoft YaHei", sans-serif
+    padding: 0
+    max-width: $maxDevice
+    margin: 0 auto
+    color: $derkTextColor
+    background: $bgColorGray
+    height:100%
+    overflow-x: hidden;
+
+*
+    box-sizing: border-box
+
+div, header, footer
+    max-width: $maxDevice
+
+@media only screen and (min-width: 750px)
+    html
+        font-size: 100px !important
+
+ul, li, p, h1, h2, h3, h4, h5, h6, dl, dt, dd
+    margin: 0
+    padding: 0
+    border: none
+    list-style: none
+
+textarea
+    outline: none
+    resize: none
+    font-size: $fontSizeNorm
+
+input:-webkit-autofill
+    box-shadow: 0 0 0 1000px white inset !important
+
+input
+    border: none
+    outline: none
+    font-size: $fontSizeNorm
+    color: $derkTextColor
+
+input::-webkit-input-placeholder
+    /* WebKit browsers */
+    color: $hintTextColor
+
+
+input:-moz-placeholder
+    /* Mozilla Firefox 4 to 18 */
+    color: $hintTextColor
+
+
+input::-moz-placeholder
+    /* Mozilla Firefox 19+ */
+    color: $hintTextColor
+
+
+input:-ms-input-placeholder
+    /* Internet Explorer 10+ */
+    color: $hintTextColor
+
+.clear
+    clear: both
+
+a:hover, a:link
+    text-decoration: none
+
+img
+    border: none
+    width: 100%
+    height: 100%
+
+table
+    border-collapse: collapse
+
+.hidden
+    display: none
+
+.text-left
+    text-align: left
+
+.text-right
+    text-align: right
+
+.text-center
+    text-align: center
+
+.pull-left
+    float: left
+
+.pull-right
+    float: right
+
+.clearfix
+    display: table
+    content: " "
+    clear: both
+    width: 100%
+
+/*暂无数据*/
+.not-data
+    background: $bgColorWhite
+    text-align: center
+
+    img
+        width: 40%
+        display: block
+        margin: 0 auto
+        max-width: 260px
+
+.not-data div
+    padding: 1rem 0 2rem
+    font-size: 1rem
+
+/*查询无结果*/
+.no-flight
+    margin-bottom: .75rem
+    color: $somberTextColor
+
+.no-flight img
+    display: block
+    width: 40%
+    max-width: 140px
+    margin: .75rem auto .3rem
+
+.no-btn
+    margin: $normElDest 0
+
+/*航司*/
+.pf
+    display: inline-block
+    width: 20px
+    height: 20px
+    position: relative
+    top: 7px
+
+/* loading样式 */
+.loading
+    position: fixed
+    top: 0
+    background: rgba(0, 0, 0, .5)
+    width: 100%
+    height: 100%
+    z-index: 99999
+
+.loading_box
+    background: rgba(0, 0, 0, .5)
+    width: 6.5rem
+    height: 6.5rem
+    top: 50%
+    left: 50%
+    margin-left: -3.45rem
+    margin-top: -3.45rem
+    border-radius: 10px
+    position: relative
+
+.load
+    position: absolute
+    top: 40%
+    left: 50%
+    width: 50px
+    height: 50px
+    margin-top: -25px
+    margin-left: -25px
+    animation: loading 3s infinite linear
+    -webkit-animation: loading 3s infinite linear
+
+@keyframes loading
+    0%
+        transform: rotate(0deg)
+
+    100%
+        transform: rotate(360deg)
+
+.load_fg
+    position: absolute
+    top: 40%
+    left: 50%
+    width: 20px
+    height: 20px
+    margin-left: -10px
+    margin-top: -10px
+
+.load_txt
+    position: absolute
+    bottom: 10px
+    left: 50%
+    margin-left: -22px
+    color: #fff
+    font-size: 12px
+
+/*错误提示*/
+.error-ipt::-webkit-input-placeholder
+    color: red
+
+.error-ipt:-moz-placeholder
+    color: red
+
+/*多选框*/
+.checkbox-icon
+    display: inline-block
+    width: .44rem
+    height: .43rem
+    background: url("../img/icon-03.png") 0 -1.48rem no-repeat
+    background-size: 3.9rem
+
+.checkbox-icon.checked
+    background-position-x: -.76rem
+
+i.iconfont.icon-quan
+    color: #CBCBCB !important
+    font-size: .4rem
+
+.icon-gou
+    font-size: .4rem
+
+input[type='checkbox'] + .my-icon-checkbox
+    display: inline-block
+    width: .4rem
+    height: .4rem
+    border: 1px solid #CBCBCB
+    border-radius: 50%
+    background: url("../img/checkboxIcon.png") #fff center center no-repeat
+    background-size: 80%
+
+input[type='checkbox']:checked + .my-icon-checkbox
+    background-color: $pageThemeColor
+    border-color: $borderThemeColor
+
+/*单选框样式*/
+.radio-choose
+    position: relative
+    padding-left: .45rem
+    cursor: pointer
+
+input[type="radio"] + label::before
+    content: ""
+    width: .25rem
+    height: .25rem
+    top: 50%
+    -webkit-transform: translate(0, -50%)
+    -moz-transform: translate(0, -50%)
+    -ms-transform: translate(0, -50%)
+    -o-transform: translate(0, -50%)
+    transform: translate(0, -50%)
+    border-radius: 50%
+    border: 1px solid #cecece
+    position: absolute
+    left: 0
+    cursor: pointer
+
+input[type="radio"]:checked + label::after
+    left: .06rem
+    top: 50%
+    -webkit-transform: translate(0, -50%)
+    -moz-transform: translate(0, -50%)
+    -ms-transform: translate(0, -50%)
+    -o-transform: translate(0, -50%)
+    transform: translate(0, -50%)
+    content: ""
+    background-color: $pageThemeColor
+    width: .16rem
+    height: .16rem
+    border-radius: 50%
+    position: absolute
+    vertical-align: middle
+    cursor: pointer
+
+/*下拉框弹框*/
+.choose-pop
+    background: rgba(0, 0, 0, .5)
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    z-index: 9
+    text-align: center
+
+.choose-content
+    background: #fff
+    width: 100%
+    max-height: 6.4rem
+    overflow-y: auto
+    position: absolute
+    bottom: 0
+    left: 50%
+    -webkit-transform: translate(-50%, 0)
+    -moz-transform: translate(-50%, 0)
+    -ms-transform: translate(-50%, 0)
+    -o-transform: translate(-50%, 0)
+    transform: translate(-50%, 0)
+
+.choose-item
+    padding: .2rem .3rem
+
+.choose-item.active
+    color: $themeTextColor
+
+.choose-item .price
+    color: #FF0000
+
+    //页面切换动画
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+    will-change: transform;
+    transition: all 500ms;
+    position: absolute;
+    width: 100%
+}
+.slide-right-enter {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+}
+.slide-right-leave-active {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+}
+.slide-left-leave-active {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+}

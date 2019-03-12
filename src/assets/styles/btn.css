@@ -1,0 +1,63 @@
+@charset "utf-8";
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    background: #ddd;
+    outline: none !important;
+    border-color: transparent;
+    border-radius: .15rem;
+}
+
+.login-btn {
+    width: 6.8rem;
+    height: .80rem;
+    font-size: .36rem;
+}
+
+.btn-ellipse {
+    border-radius: .5rem;
+}
+
+body .btn-corner-small {
+    border-radius: .1rem;
+}
+
+.btn-v-code {
+    height: .5rem;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    font-size: .3rem;
+}
+
+.btn-normal {
+    height: .6rem;
+    line-height: .6rem;
+    padding-left: .37rem;
+    padding-right: .37rem;
+    font-size: .28rem;
+}
+
+.btn-lucency-blue, .btn-lucency-blue:hover, .btn-lucency-blue:focus {
+    border: 1px solid #258FED;
+    background: transparent;
+    color: #258FED;
+}
+
+.btn-blue, .btn-blue:hover, .btn-blue:focus {
+    background: #258FED;
+    color: #fff;
+}
+
+.btn-white, .btn-white:hover, .btn-white:focus {
+    background: #fff;
+    color: #666;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #CCC;
+}
+
+.btn-orange, .btn-orange:hover, .btn-orange:focus {
+    background: #FF744B;
+    color: #fff;
+}

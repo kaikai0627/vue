@@ -1,0 +1,41 @@
+header {
+  position: relative;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  color: #fff;
+  background: #1d1d1d;
+  text-align: center;
+  font-size: 0.36rem;
+}
+header .icon-retreat {
+  display: inline-block;
+  height: 100%;
+  width: 1.4rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.28rem;
+  color: #fff;
+}
+header .icon-retreat .icon-back {
+  position: absolute;
+  left: 0.34rem;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+header .header-rt {
+  display: inline-block;
+  height: 100%;
+  width: 1.6rem;
+  position: absolute;
+  top: 0;
+  font-size: 0.28rem;
+  padding-right: 0.34rem;
+  text-align: right;
+  right: 0;
+  color: #fff;
+}
