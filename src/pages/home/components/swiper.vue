@@ -32,10 +32,10 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
 .wrapper >>> .swiper-pagination-bullet-active
 	background-color: #fff
-		
+
 .wrapper
 	width: 100%
 	height: 0
@@ -44,5 +44,5 @@ export default {
 
 	.swiper-img
 		width: 100%
-	
+
 </style>

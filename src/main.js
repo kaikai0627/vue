@@ -10,16 +10,17 @@ import 'styles/iconfont.css'
 import 'swiper/dist/css/swiper.css'
 import 'styles/reset.css'
 import 'styles/btn.css'
+import 'styles/varibles.css'
 import 'styles/skin_color_package.css'
 import './assets/js/fontFamily.js'
 import axios from 'axios'
-import md5 from 'js-md5';
+import md5 from 'js-md5'
 
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 fastClick.attach(document.body)
 Vue.use(VueAwesomeSwiper)
-Vue.prototype.$md5 = md5;
+Vue.prototype.$md5 = md5
 
 /* eslint-disable no-new */
 new Vue({

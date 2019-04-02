@@ -49,7 +49,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .entrance {
         height: .8rem;
         line-height: .8rem;

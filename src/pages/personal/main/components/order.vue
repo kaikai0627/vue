@@ -42,7 +42,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .menu-order {
         background: #fff;
         padding: 0 .4rem;

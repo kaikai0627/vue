@@ -11,7 +11,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .personal-info {
         background: url("./personal-bg.png") left top no-repeat;
         background-size: 100% 100%;

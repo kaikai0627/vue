@@ -59,7 +59,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .cause-title {
         font-size: .32rem;
         margin: .2rem 0;

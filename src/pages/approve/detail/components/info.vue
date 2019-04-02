@@ -46,7 +46,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .submitter {
         padding: .25rem 0;
         font-size: .24rem;

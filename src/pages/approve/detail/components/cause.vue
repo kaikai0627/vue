@@ -18,7 +18,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .text-wrap {
         background: #fff;
         margin: .1rem 0;

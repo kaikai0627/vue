@@ -35,7 +35,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .flight-info {
         background-color: #fff;
         padding: 0 .34rem;

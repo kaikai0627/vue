@@ -63,7 +63,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .passenger {
         margin-top: .1rem;
         background: #fff;

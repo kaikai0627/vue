@@ -52,7 +52,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     @import '~styles/varibles.styl'
     .flight-voyage {
         background: #fff;

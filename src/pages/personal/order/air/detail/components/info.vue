@@ -43,7 +43,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .flight-info {
         margin-top: .1rem;
         background: #fff;

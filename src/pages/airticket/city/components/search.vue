@@ -49,112 +49,112 @@
 </template>
 
 <script>
-    import Bscroll from 'better-scroll'
+import Bscroll from 'better-scroll'
 
-    export default {
-        name: 'CitySearch',
-        mounted() {
-            this.scroll = new Bscroll(this.$refs.search)
-        },
-        props: {
-            city: String,
-            isActive: Boolean,
-            delActive: Boolean,
-            letterList: Object
-        },
-        data() {
-            return {
-                depart: this.$store.state.depart,
-                arrive: this.$store.state.arrive,
-                onActive: true,
-                cloneActive: false,
-                keywordList: [],
-                showList: false
+export default {
+    name: 'CitySearch',
+    mounted () {
+        this.scroll = new Bscroll(this.$refs.search)
+    },
+    props: {
+        city: String,
+        isActive: Boolean,
+        delActive: Boolean,
+        letterList: Object
+    },
+    data () {
+        return {
+            depart: this.$store.state.depart,
+            arrive: this.$store.state.arrive,
+            onActive: true,
+            cloneActive: false,
+            keywordList: [],
+            showList: false
+        }
+    },
+    computed: {
+        hasNoData () {
+            return !this.keywordList.length
+        }
+    },
+    watch: {
+        city () {
+            if (this.onActive) {
+                this.depart = this.city
+            } else {
+                this.arrive = this.city
             }
+            this.onActive = false
+            this.cloneActive = true
         },
-        computed: {
-            hasNoData() {
-                return !this.keywordList.length
+        depart () {
+            this.$emit('change', this.depart)
+        },
+        arrive () {
+            this.$emit('changes', this.arrive)
+        }
+    },
+    methods: {
+        exchange () {
+            const depart = this.depart
+            const arrive = this.arrive
+            this.depart = arrive
+            this.arrive = depart
+        },
+        checked (num) {
+            this.onActive = num == '2' ? false : true
+            this.cloneActive = num == '1' ? false : true
+        },
+        itemCity (city) {
+            if (this.onActive) {
+                this.depart = city
+            } else {
+                this.arrive = city
             }
+            this.showList = false
+            this.keywordList = []
         },
-        watch: {
-            city() {
-                if (this.onActive) {
-                    this.depart = this.city
+        searchCity (is) {
+            if (this.timer) {
+                clearTimeout(this.timer)
+            }
+            this.timer = setTimeout(() => {
+                const result = []
+                // this.showList = true
+                if (!this.keywordList.length) {
+                    this.keywordList = []
+                    this.showList = true
                 } else {
-                    this.arrive = this.city
+                    this.showList = false
                 }
-                this.onActive = false
-                this.cloneActive = true
-            },
-            depart() {
-                this.$emit('change', this.depart)
-            },
-            arrive() {
-                this.$emit('changes', this.arrive)
-            }
-        },
-        methods: {
-            exchange() {
-                const depart = this.depart
-                const arrive = this.arrive
-                this.depart = arrive
-                this.arrive = depart
-            },
-            checked(num) {
-                this.onActive = num == '2' ? false : true
-                this.cloneActive = num == '1' ? false : true
-            },
-            itemCity(city) {
-                if (this.onActive) {
-                    this.depart = city
-                } else {
-                    this.arrive = city
-                }
-                this.showList = false
-                this.keywordList = []
-            },
-            searchCity(is) {
-                if (this.timer) {
-                    clearTimeout(this.timer)
-                }
-                this.timer = setTimeout(() => {
-                    const result = []
-                    // this.showList = true
-                    if (!this.keywordList.length) {
-                        this.keywordList = []
-                        this.showList = true
-                    } else {
-                        this.showList = false
-                    }
-                    for (let i in this.letterList) {
-                        this.letterList[i].forEach((value) => {
-                            if (is == 1) {
-                                if (value.spell.indexOf(this.depart) > -1 ||
+                for (let i in this.letterList) {
+                    this.letterList[i].forEach((value) => {
+                        if (is == 1) {
+                            if (value.spell.indexOf(this.depart) > -1 ||
                                     value.name.indexOf(this.depart) > -1) {
-                                    if (this.depart != "") {
-                                        result.push(value)
-                                    }
-                                }
-                            } else {
-                                if (value.spell.indexOf(this.arrive) > -1 ||
-                                    value.name.indexOf(this.arrive) > -1) {
-                                    if (this.arrive != "") {
-                                        result.push(value)
-                                    }
+                                if (this.depart != '') {
+                                    result.push(value)
                                 }
                             }
+                        } else {
+                            if (value.spell.indexOf(this.arrive) > -1 ||
+                                    value.name.indexOf(this.arrive) > -1) {
+                                if (this.arrive != '') {
+                                    result.push(value)
+                                }
+                            }
+                        }
 
-                        })
-                    }
-                    this.keywordList = result
-                }, 100)
-            },
-        }
+                    })
+                }
+                this.keywordList = result
+            }, 100)
+        },
     }
+}
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     @import '~styles/varibles.styl'
     .search-condition
         background: #fff

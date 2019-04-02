@@ -26,7 +26,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .main {
         margin-top: .1rem;
         padding: 0 .34rem;

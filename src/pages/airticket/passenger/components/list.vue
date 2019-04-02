@@ -5,50 +5,64 @@
             <i class="iconfont icon-sousuo icon-search"></i>
         </div>
         <div class="passenger-list">
-            <div class="passenger-item">
+            <div class="passenger-item" v-for="item in linkmanContent" :key="item.id">
                 <div class="passenger-hd">
                     <i class="iconfont icon-ren skin font_skin_themeColor"></i>
-                    张三<span class="eng-name">ZHANG/SAN</span><span class="passenger-type pull-right skin font_skin_themeColor">员工</span>
+                    {{item.name}}<span class="eng-name">{{item.engName}}</span><span
+                        class="passenger-type pull-right skin font_skin_themeColor">{{item.type}}</span>
                 </div>
                 <div class="passenger-bd">
                     <label class="passenger-chose">
-                        <i class="checkbox-icon"
-                           :class="{checked: isChecked}"
-                           @click="isChecked = !isChecked"
-                        >
-                        </i>
+                        <input type="checkbox"
+                               v-model="linkmanList"
+                               :value="item.name+','+item.type+','+item.identityCard+','+item.tel"
+                        />
+                        <i class="my-icon-checkbox"></i>
                     </label>
                     <div class="passenger-text">WPS&nbsp;Heavy&nbsp;Division&nbsp;-&nbsp;General</div>
-                    <div>身份证&nbsp;32122202020202101</div>
-                    <div>手机号&nbsp;1832291918</div>
+                    <div>身份证&nbsp;{{item.identityCard}}</div>
+                    <div>手机号&nbsp;{{item.tel}}</div>
                 </div>
             </div>
             <div class="text-center">没有更多数据...</div>
         </div>
         <div class="passenger-operation clearfix">
             <button type="button" class="pull-left" @click="cancelAdd">取消</button>
-            <button type="button" class="pull-left skin btn_skin_themColor">完成</button>
+            <button type="button" class="pull-left skin btn_skin_themColor" @click="finishChecked">完成</button>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'LinkmanList',
-        data () {
-            return {
-                isChecked: false
-            }
+export default {
+    name: 'LinkmanList',
+    props: {
+        linkmanContent: Array
+    },
+    data () {
+        return {
+            isChecked: false,
+            linkmanList: []
+        }
+    },
+    methods: {
+        cancelAdd () {
+            this.$router.push({name: 'Book'})
         },
-        methods: {
-            cancelAdd () {
-                this.$router.push({path:"/airtitcket/book"})
-            }
+        //使用v-model双向绑定 把选中的联系人信息作为参数传递到book页面
+        finishChecked () {
+            this.$router.push({
+                name: 'Book',
+                query: {
+                    linkman: this.linkmanList
+                }
+            })
         }
     }
+}
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .main {
         padding-bottom: 1.3rem;
 
@@ -116,6 +130,11 @@
                         left: .3rem;
                         top: 50%;
                         margin-top: -.22rem;
+
+                        input {
+                            position absolute;
+                            opacity: 0;
+                        }
                     }
 
                     .passenger-text {

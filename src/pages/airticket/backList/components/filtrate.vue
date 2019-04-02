@@ -168,7 +168,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .sort-list
         position: fixed
         z-index: 1

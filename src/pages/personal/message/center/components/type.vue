@@ -49,7 +49,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .messages-list {
         padding: 0 .34rem;
         background: #fff;

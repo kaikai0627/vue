@@ -30,7 +30,7 @@
                         <div>往返价{{item.discount}}折</div>
                     </div>
                 </div>
-                <div class="remark"><i class="pf pf_cz"></i>东方航空&nbsp;MU5331&nbsp;330大&nbsp;有餐食</div>
+                <div class="remark"><i class="pf pf_cz"></i>{{item.airline}}&nbsp;MU5331&nbsp;330大&nbsp;有餐食</div>
             </div>
             <div class="flight-date clearfix" v-if="list.length >= 1">
                 筛选合适的航班时间
@@ -125,7 +125,7 @@
                                 <div class="airport-city">虹桥国际机场T1</div>
                             </div>
                             <div class="discount pull-right text-right">
-                                <div class="flight-price">?<span>7568</span></div>
+                                <div class="flight-price">&yen;<span>7568</span></div>
                             </div>
                         </div>
                         <div class="remark">
@@ -135,7 +135,10 @@
                 </div>
                 <div class="filtrate-foot clearfix">
                     <button type="button" @click="toBook(0)" class="btn pull-left">预订最低价</button>
-                    <button type="button" @click="toBook(1)" class="btn skin btn_skin_themColor pull-left">继续预订原航班</button>
+                    <button type="button" @click="toBook(1)"
+                            class="btn skin btn_skin_themColor pull-left"
+                    >
+                        继续预订原航班</button>
                 </div>
             </div>
         </div>
@@ -172,7 +175,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .list-wrap {
         padding-bottom 1.1rem;
     }
@@ -194,81 +197,81 @@
                 color: #fff
                 background: #FF6058
 
-    .airport-info
-        width: 1.85rem
-        margin-top: .2rem
+        .airport-info
+            width: 1.85rem
+            margin-top: .2rem
 
-        .airport-date
-            font-size: .4rem
+            .airport-date
+                font-size: .4rem
 
-        .airport-city
-            color: #999
-            margin-top: .12rem
+            .airport-city
+                color: #999
+                margin-top: .12rem
 
-    .airport-transit
-        width: 1.35rem
-        position: relative
-        line-height: .55rem
-
-        div
-            height: .55rem
-            width: 100%
-
-        .icon-arrow-line
+        .airport-transit
             width: 1.35rem
-            position: absolute
-            left: 0
-            top: 46%
-
-        .icon-arrow-line:before
-            content: ''
-            position: absolute
-            left: 0
-            top: 0
-            width: 1.35rem
-            height: 1px
-            background: #ccc
-
-        .icon-arrow-line:after
-            content: ''
-            position: absolute
-            right: -1px
-            bottom: -1px
-            width: 0
-            height: 0
-            border-style: solid
-            border-width: .07rem .07rem .07rem 0
-            border-color: transparent transparent #ccc
-
-        .discount
-            width: 1.76rem
-            padding-left: .1rem
-
-            .flight-price
-                color: #FF0202
-                font-size: .3rem
-                width: 1.76rem
-                margin: 0
-
-                span
-                    font-size: .4rem
+            position: relative
+            line-height: .55rem
 
             div
-                margin-right: -.1rem
+                height: .55rem
+                width: 100%
 
-        .remark
-            padding: .23rem 0 .3rem .4rem
-            border-top: .01rem solid #E5E5E5
-            margin-top: .25rem
-            position: relative
-
-            i
+            .icon-arrow-line
+                width: 1.35rem
                 position: absolute
                 left: 0
-                top: .25rem
+                top: 46%
 
-            span
-                color: #248FED
+            .icon-arrow-line:before
+                content: ''
+                position: absolute
+                left: 0
+                top: 0
+                width: 1.35rem
+                height: 1px
+                background: #ccc
+
+            .icon-arrow-line:after
+                content: ''
+                position: absolute
+                right: -1px
+                bottom: -1px
+                width: 0
+                height: 0
+                border-style: solid
+                border-width: .1rem .1rem .1rem 0
+                border-color: transparent transparent #ccc
+
+            .discount
+                width: 1.76rem
+                padding-left: .1rem
+
+                .flight-price
+                    color: #FF0202
+                    font-size: .3rem
+                    width: 1.76rem
+                    margin: 0
+
+                    span
+                        font-size: .4rem
+
+                div
+                    margin-right: -.1rem
+
+    .remark
+        padding: .23rem 0 .3rem .4rem
+        border-top: .01rem solid #E5E5E5
+        margin-top: .25rem
+        position: relative
+
+        i
+            position: absolute
+            left: 0
+            top: .25rem
+
+        span
+            color: #248FED
 
     .flight-date {
         padding: .2rem .34rem;

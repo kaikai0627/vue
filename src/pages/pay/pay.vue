@@ -40,7 +40,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .form-submit{
         margin-top: .9rem;
 

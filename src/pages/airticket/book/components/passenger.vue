@@ -9,18 +9,18 @@
                 添加
             </button>
         </div>
-        <div class="passenger-item">
-            <div class="item-hd">张三&nbsp;<span>员工</span>
-                <span class="pull-right delete-passenger skin font_skin_themeColor">删除</span>
+        <div class="passenger-item" v-for="(item,index) in linkman">
+            <div class="item-hd">{{item[0]}}&nbsp;<span>{{item[1]}}</span>
+                <span class="pull-right delete-passenger skin font_skin_themeColor" @click="deleteItem(index)">删除</span>
             </div>
             <div class="item-bd">
                 <div>
                     <span class="item-title">身份证</span>
-                    <a href="javascript:void(0);" style="color: #363636;">4334532254451561</a>
+                    <a href="javascript:void(0);" style="color: #363636;">{{item[2]}}</a>
                 </div>
                 <div>
                     <span class="item-title">手机号</span>
-                    <a href="javascript:void(0);" style="color: #363636;">183269629191</a>
+                    <a href="javascript:void(0);" style="color: #363636;">{{item[3]}}</a>
                 </div>
                 <i class="iconfont icon-iconfontyoujiantou skin font_skin_themeColor"></i>
             </div>
@@ -30,17 +30,34 @@
 </template>
 
 <script>
-    export default {
-        name: 'BookPassenger',
-        methods: {
-            handGoAdd () {
-                this.$router.push({path: "/airtitcket/passenger"});
-            }
+export default {
+    name: 'BookPassenger',
+    props: {
+        linkmanItem: Array
+    },
+    data () {
+        return {
+            linkman: []
+        }
+    },
+    methods: {
+        handGoAdd () {
+            this.$router.push({path: '/airtitcket/passenger'})
+        },
+        deleteItem (id) {
+            this.linkman.splice(id, 1)
+            this.$emit('change', this.linkman)
+        }
+    },
+    watch: {
+        linkmanItem () {
+            this.linkman = this.linkmanItem
         }
     }
+}
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .passenger-wrap {
         margin-top: .1rem;
         background: #fff;

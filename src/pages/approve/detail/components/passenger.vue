@@ -49,7 +49,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .passenger-wrap {
         margin-bottom: .1rem;
         background: #fff;

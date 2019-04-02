@@ -99,15 +99,15 @@
             <div class="cost-list">
                 <div class="clearfix">
                     <div class="pull-left cost-hd">机票费</div>
-                    <div class="pull-left cost-bd"><span>&yen;</span>7568</div>
+                    <div class="pull-left cost-bd"><span>&yen;</span>{{costList.airPrice}}</div>
                 </div>
                 <div class="clearfix">
                     <div class="pull-left cost-hd">税、燃油</div>
-                    <div class="pull-left cost-bd"><span>&yen;</span>50</div>
+                    <div class="pull-left cost-bd"><span>&yen;</span>{{costList.constructionPrice}}</div>
                 </div>
                 <div class="clearfix">
                     <div class="pull-left cost-hd">服务费</div>
-                    <div class="pull-left cost-bd"><span>&yen;</span>10</div>
+                    <div class="pull-left cost-bd"><span>&yen;</span>{{costList.servePrice}}</div>
                 </div>
             </div>
             <div class="vice text-right skin font_skin_themeColor" @click="explainShow = true">
@@ -156,6 +156,9 @@
 <script>
     export default {
         name: 'BookInfo',
+        props: {
+            costList: Object
+        },
         data() {
             return {
                 show: true,
@@ -166,7 +169,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .flight-summary {
         padding: .25rem .34rem .25rem .9rem;
         background: #fff;
@@ -255,7 +258,7 @@
                         width: 0;
                         height: 0;
                         border-style: solid;
-                        border-width: .07rem .07rem .07rem 0;
+                        border-width: .1rem .1rem .1rem 0;
                         border-color: transparent transparent #fff;
                     }
                 }

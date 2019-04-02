@@ -29,7 +29,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .order-info {
         padding: 0 .34rem;
         background: #fff;

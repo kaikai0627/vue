@@ -15,7 +15,7 @@
             <div>{{priceText}}</div>
         </div>
         <div class="sort-item pull-left skin font_skin_themeColor_active"
-             @click="sortType"
+             @click="sortType('2')"
         >
             <div class="iconfont icon-shaixuan sort-icon"></div>
             <div>筛选</div>
@@ -24,57 +24,19 @@
             <div class="filtrate-content">
                 <div class="filtrate-hd text-center">
                     条件筛选
-                    <button type="button" class="btn skin btn_border_skin_themColors btn-v-code pull-right">清除筛选
+                    <button type="button" @click="clearFiltrate"
+                            class="btn skin btn_border_skin_themColors btn-v-code pull-right"
+                    >
+                        清除筛选
                     </button>
                 </div>
                 <div class="filtrate-bd text-left">
                     <div class="filtrate-title">航空公司</div>
                     <div class="filtrate-list clearfix">
-                        <label>
-                            <input type="checkbox" class="hidden">
+                        <label v-for="item of airLineList">
+                            <input type="checkbox" v-model="checkedAirline" class="hidden" :value="item">
                             <i class="my-icon-checkbox"></i>
-                            深圳航空
-                        </label>
-                        <label>
-                            <input type="checkbox" class="hidden">
-                            <i class="my-icon-checkbox"></i>
-                            吉祥航空
-                        </label>
-                    </div>
-                    <div class="filtrate-title">出发时间</div>
-                    <div class="filtrate-list clearfix">
-                        <label>
-                            <input type="checkbox" class="hidden">
-                            <i class="my-icon-checkbox"></i>
-                            06:00-12:00
-                        </label>
-                        <label>
-                            <input type="checkbox" class="hidden">
-                            <i class="my-icon-checkbox"></i>
-                            12:00-18:00
-                        </label>
-                        <label>
-                            <input type="checkbox" class="hidden">
-                            <i class="my-icon-checkbox"></i>
-                            18:00-24:00
-                        </label>
-                    </div>
-                    <div class="filtrate-title">到达时间</div>
-                    <div class="filtrate-list clearfix">
-                        <label>
-                            <input type="checkbox" class="hidden">
-                            <i class="my-icon-checkbox"></i>
-                            06:00-12:00
-                        </label>
-                        <label>
-                            <input type="checkbox" class="hidden">
-                            <i class="my-icon-checkbox"></i>
-                            12:00-18:00
-                        </label>
-                        <label>
-                            <input type="checkbox" class="hidden">
-                            <i class="my-icon-checkbox"></i>
-                            18:00-24:00
+                            {{item}}
                         </label>
                     </div>
                     <div class="filtrate-title">出发机场</div>
@@ -106,7 +68,8 @@
                 </div>
                 <div class="filtrate-foot clearfix">
                     <button type="button" class="btn pull-left" @click="filtratePopHide">取消</button>
-                    <button type="button" class="btn skin btn_skin_themColor pull-left">确认</button>
+                    <button type="button" class="btn skin btn_skin_themColor pull-left" @click="handleFiltrate">确认
+                    </button>
                 </div>
             </div>
         </div>
@@ -114,62 +77,79 @@
 </template>
 
 <script>
-    export default {
-        name: 'ListFiltrate',
-        props: {
-            list: Array
-        },
-        data() {
-            return {
-                sortActive: "",      //排序被选中
-                dateText: "时间",     //时间排序
-                priceText: "价格",    //价格排序
-                filtratePop: false, //筛选弹框 默认隐藏
-                flightList: [],  //航班列表
-            }
-        },
-        watch: {
-            //父组件传过来的list存到flightList数组里
-            list: function (newVal) {
-                this.flightList = newVal;
-            }
-        },
-        methods: {
-            // 排序类型 type=1时间排序  =2价格排序
-            sortType(type) {
-                if (type === "0") {
-                    this.sortActive = "0"
-                    this.priceText = "价格"
-                    if (this.dateText == "时间" || this.dateText == "时间从晚到早") {
-                        this.dateText = "时间从早到晚"
-                        this.flightList.sort((a, b) => b.begDate < a.begDate ? 1 : -1)
-                    } else if (this.dateText === "时间从早到晚") {
-                        this.dateText = "时间从晚到早"
-                        this.flightList.sort((a, b) => a.begDate < b.begDate ? 1 : -1)
-                    }
-                } else if (type === "1") {
-                    this.sortActive = "1"
-                    this.dateText = "时间"
-                    if (this.priceText == "价格" || this.priceText == "价格从低到高") {
-                        this.priceText = "价格从高到低"
-                        this.flightList.sort((a, b) => a.price < b.price ? 1 : -1)
-                    } else if (this.priceText === "价格从高到低") {
-                        this.priceText = "价格从低到高"
-                        this.flightList.sort((a, b) => b.price < a.price ? 1 : -1)
-                    }
-                } else {
-                    this.filtratePop = true
+export default {
+    name: 'ListFiltrate',
+    props: {
+        list: Array
+    },
+    data () {
+        return {
+            sortActive: '',      //排序被选中
+            dateText: '时间',     //时间排序
+            priceText: '价格',    //价格排序
+            filtratePop: false, //筛选弹框 默认隐藏
+            flightList: [],  //航班列表
+            airLineList: [], //去重的航司列表
+            checkedAirline: [] //选中的筛选条件
+        }
+    },
+    watch: {
+        //父组件传过来的list存到flightList数组里
+        list: function (newVal) {
+            this.flightList = newVal
+            for (var i = 0; i < newVal.length; i++) {
+                if (this.airLineList.indexOf(newVal[i].airline) == -1) {
+                    this.airLineList.push(newVal[i].airline)
                 }
-                this.$emit('chang', this.flightList)
-            },
-            filtratePopHide () {
-                this.filtratePop = false
+            }
+        }
+    },
+    methods: {
+        // 排序类型 type=1时间排序  =2价格排序
+        sortType (type) {
+            if (type === '0') {
+                this.sortActive = '0'
+                this.priceText = '价格'
+                if (this.dateText == '时间' || this.dateText == '时间从晚到早') {
+                    this.dateText = '时间从早到晚'
+                    this.flightList.sort((a, b) => b.begDate < a.begDate ? 1 : -1)
+                } else if (this.dateText === '时间从早到晚') {
+                    this.dateText = '时间从晚到早'
+                    this.flightList.sort((a, b) => a.begDate < b.begDate ? 1 : -1)
+                }
+                this.$emit('change', this.flightList)
+            } else if (type === '1') {
+                this.sortActive = '1'
+                this.dateText = '时间'
+                if (this.priceText == '价格' || this.priceText == '价格从低到高') {
+                    this.priceText = '价格从高到低'
+                    this.flightList.sort((a, b) => a.price < b.price ? 1 : -1)
+                } else if (this.priceText === '价格从高到低') {
+                    this.priceText = '价格从低到高'
+                    this.flightList.sort((a, b) => b.price < a.price ? 1 : -1)
+                }
+                this.$emit('change', this.flightList)
+            } else {
+                this.filtratePop = true
             }
         },
-    }
+        // 关闭筛选框
+        filtratePopHide () {
+            this.filtratePop = false
+        },
+        // 筛选 使用emit把选中的条件传给父组件
+        handleFiltrate () {
+            this.$emit("filtrate",this.checkedAirline)
+        },
+        // 清空筛选
+        clearFiltrate () {
+            this.checkedAirline = []
+        }
+    },
+}
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .sort-list
         position: fixed
         z-index: 1

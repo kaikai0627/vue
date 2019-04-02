@@ -23,7 +23,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .contact-pop {
         background: rgba(0, 0, 0, .5);
         position: fixed;

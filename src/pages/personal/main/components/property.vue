@@ -48,7 +48,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
 
     .property {
         background: #fff;

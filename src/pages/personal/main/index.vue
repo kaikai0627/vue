@@ -46,7 +46,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .main {
         padding-bottom: 1rem
     }

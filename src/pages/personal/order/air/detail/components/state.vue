@@ -18,7 +18,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .order-info {
         height: 3rem;
         padding: .6rem 0 0 .72rem;

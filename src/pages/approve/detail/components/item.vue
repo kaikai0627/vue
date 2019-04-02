@@ -37,7 +37,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .detail-info {
         background: #fff;
         padding: .2rem .34rem;

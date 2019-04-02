@@ -10,7 +10,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .discount-bg {
         height: 2.49rem;
         background: url("./bg-01.png") no-repeat;

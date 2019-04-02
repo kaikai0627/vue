@@ -41,7 +41,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .conversion {
         height: 2.49rem;
         background: url("./bg-02.png") no-repeat;

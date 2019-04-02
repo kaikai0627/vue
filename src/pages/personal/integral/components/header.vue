@@ -16,6 +16,6 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     @import '~styles/header.styl'
 </style>

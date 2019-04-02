@@ -118,7 +118,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
 
     .form-inline-input input,
     .code-box

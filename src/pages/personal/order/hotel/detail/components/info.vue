@@ -42,7 +42,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .hotel-info {
         margin-top: .1rem;
         background: #fff;

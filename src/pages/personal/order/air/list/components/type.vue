@@ -35,7 +35,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .cut-nav {
         height: .85rem;
         line-height: .85rem;

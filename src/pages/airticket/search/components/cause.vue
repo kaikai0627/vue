@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
 .cause
     background: #fff
     width: 100%
@@ -35,18 +35,18 @@ export default {
     height: .8rem
     line-height: .8rem
     padding: 0 .34rem
- 	
+
  	.cause li
 	    width: 50%
 	    cursor:pointer
-	
+
 		.cause span
 		    display: inline-block
 		    height: 100%
 		    border-bottom: 1px solid transparent
-	
+
 		.cause li.active span
 		    color: #258FED
-		    border-color: #258FED 
-	
+		    border-color: #258FED
+
 </style>

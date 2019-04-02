@@ -112,6 +112,9 @@
             toCity() {
                 this.$router.push({path: '/airtitcket/city'})
             },
+            // 跳转航班查询结果
+            toList() {
+            },
             //航班查询
             submitFlight() {
                 // this.$axios({
@@ -141,41 +144,14 @@
                 //     alert(res)
                 // })
 
-                // this.$axios({
-                //     url: 'http://op.juhe.cn/flight/df/fs',
-                //     method: 'post',
-                //     headers: {
-                //         'Content-Type': 'application/json;charset=utf-8'
-                //     },
-                //     data: JSON.stringify({
-                //         func: 'query',
-                //         param: {
-                //             "key": "2cec487d212d2266e2b4c5aac54b1b57",
-                //             "orgCity": this.departCode,
-                //             "dstCity": this.arriveCode,
-                //             "flightNo": '',
-                //         }
-                //     })
-                // }).then((res) => {
-                //     alert(res)
-                // })
-
-                this.$router.push({
-                    path: '/airtitcket/list',
-                    query: {
-                        "key": "2cec487d212d2266e2b4c5aac54b1b57",
-                        "orgCity": this.departCode,
-                        "dstCity": this.arriveCode,
-                        "flightNo": '',
-                    }
-                })
+                this.$router.push({path: '/airtitcket/list'})
 
             }
         }
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     @import '~styles/varibles.styl'
     .search-form
         padding: 0 .34rem

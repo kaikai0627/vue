@@ -35,7 +35,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .order-list {
         padding: .2rem .34rem;
 

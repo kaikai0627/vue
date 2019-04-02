@@ -73,7 +73,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .credit-list {
         margin-top: .1rem;
         background: #fff;

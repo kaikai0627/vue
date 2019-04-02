@@ -67,7 +67,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .pay-type {
         margin-top: .1rem;
         background: #fff;

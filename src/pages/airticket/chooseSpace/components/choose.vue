@@ -86,7 +86,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     @import '~styles/varibles.styl'
     .choose-title {
         padding: .3rem $normElDest;

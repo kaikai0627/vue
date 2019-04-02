@@ -37,7 +37,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .btn {
         width: 100%;
         border-radius: 0;

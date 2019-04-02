@@ -5,7 +5,7 @@
             <i class="iconfont icon-baoxian skin font_skin_themeColor"></i>
             航空意外险
             <span class="compensate">最高赔付20万
-                <span class="insurance-price">¥<span>20</span></span>
+                <span class="insurance-price">¥<span>{{costList.insurancePrice}}</span></span>
                 元/份
             </span>
             <label>
@@ -103,6 +103,9 @@
 <script>
     export default {
         name: 'BookFillout',
+        props: {
+            costList: Object
+        },
         data() {
             return {
                 isChecked: false,
@@ -167,7 +170,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .insurance-advertising {
         height: 1.2rem;
         background: url("./bg-05.png") no-repeat;

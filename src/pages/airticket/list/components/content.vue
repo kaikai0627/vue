@@ -1,36 +1,69 @@
 <template>
     <div>
         <div v-if="list.length >= 1">
-            <div class="flight-item"
-                 v-for="item of list"
-                 :key="item.id"
-                 v-if="item.tax"
-                 @click="handToFlight(item.link)"
-
-            >
-                <div class="text-right benefit">
-                    <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
+            <div v-if="taxWhether">
+                <div class="flight-item"
+                     v-for="item of flightList"
+                     :key="item.id"
+                     v-if="item.tax"
+                     @click="handToFlight(item.link)"
+                >
+                    <div class="text-right benefit">
+                        <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
+                    </div>
+                    <div class="clearfix">
+                        <div class="airport-info pull-left">
+                            <div class="airport-date">{{item.begDate}}</div>
+                            <div class="airport-city">{{item.begCity}}</div>
+                        </div>
+                        <div class="airport-transit text-center pull-left">
+                            <div>中转</div>
+                            <i class="icon-arrow-line"></i>
+                            <div>长沙</div>
+                        </div>
+                        <div class="airport-info text-right pull-left">
+                            <div class="airport-date">{{item.endDate}}</div>
+                            <div class="airport-city">{{item.endCity}}</div>
+                        </div>
+                        <div class="discount pull-left text-center">
+                            <div class="flight-price">&yen;<span>{{item.price}}</span></div>
+                            <div>会员价{{item.discount}}折</div>
+                        </div>
+                    </div>
+                    <div class="remark"><i class="pf pf_cz"></i>{{item.airline}}&nbsp;MU5331&nbsp;330大&nbsp;有餐食</div>
                 </div>
-                <div class="clearfix">
-                    <div class="airport-info pull-left">
-                        <div class="airport-date">{{item.begDate}}</div>
-                        <div class="airport-city">{{item.begCity}}</div>
+            </div>
+            <div v-else>
+                <div class="flight-item"
+                     v-for="item of list"
+                     :key="item.id"
+                     v-if="item.tax == false"
+                     @click="handToFlight(item.link)"
+                >
+                    <div class="text-right benefit">
+                        <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
                     </div>
-                    <div class="airport-transit text-center pull-left">
-                        <div>中转</div>
-                        <i class="icon-arrow-line"></i>
-                        <div>长沙</div>
+                    <div class="clearfix">
+                        <div class="airport-info pull-left">
+                            <div class="airport-date">{{item.begDate}}</div>
+                            <div class="airport-city">{{item.begCity}}</div>
+                        </div>
+                        <div class="airport-transit text-center pull-left">
+                            <div>中转</div>
+                            <i class="icon-arrow-line"></i>
+                            <div>长沙</div>
+                        </div>
+                        <div class="airport-info text-right pull-left">
+                            <div class="airport-date">{{item.endDate}}</div>
+                            <div class="airport-city">{{item.endCity}}</div>
+                        </div>
+                        <div class="discount pull-left text-center">
+                            <div class="flight-price">&yen;<span>{{item.price}}</span></div>
+                            <div>往返价{{item.discount}}折</div>
+                        </div>
                     </div>
-                    <div class="airport-info text-right pull-left">
-                        <div class="airport-date">{{item.endDate}}</div>
-                        <div class="airport-city">{{item.endCity}}</div>
-                    </div>
-                    <div class="discount pull-left text-center">
-                        <div class="flight-price">&yen;<span>{{item.price}}</span></div>
-                        <div>会员价{{item.discount}}折</div>
-                    </div>
+                    <div class="remark"><i class="pf pf_cz"></i>{{item.airline}}&nbsp;MU5331&nbsp;330大&nbsp;有餐食</div>
                 </div>
-                <div class="remark"><i class="pf pf_cz"></i>东方航空&nbsp;MU5331&nbsp;330大&nbsp;有餐食</div>
             </div>
             <div class="flight-date clearfix" v-if="list.length >= 1">
                 筛选合适的航班时间
@@ -93,7 +126,7 @@
                 </table>
             </div>
         </div>
-        <div class="no-flight text-center" v-if="list.length < 1">
+        <div class="no-flight text-center" v-else>
             <img src="~images/no_result.png" alt="">
 
             <div>没有找到结果哎~</div>
@@ -105,20 +138,57 @@
 </template>
 
 <script>
-    export default {
-        name: 'ListContent',
-        props: {
-            list: Array
+export default {
+    name: 'ListContent',
+    props: {
+        list: Array,
+        whether: Boolean,
+        airlineFiltrate: Array
+    },
+    data () {
+        return {
+            taxWhether: true,
+            flightList: [],
+            filtrateSucceed: []
+        }
+    },
+    methods: {
+        handToFlight (url) {
+            this.$router.push(url)
+        }
+    },
+    watch: {
+        // 监听组件传过来的参数
+        whether () {
+            this.taxWhether = this.whether
         },
-        methods: {
-            handToFlight(url) {
-                this.$router.push(url)
+        list () {
+            this.flightList = this.list
+        },
+        // 航司筛选
+        airlineFiltrate () {
+            if (this.airlineFiltrate != '') {
+                // 初始化过滤容器
+                this.filtrateSucceed = []
+                // 循环过滤条件
+                for (let i = 0; i < this.airlineFiltrate.length; i++) {
+                    // 循环所有数据
+                    for (let l = 0; l < this.list.length; l++) {
+                        // 根据过滤条件检测所有数据中符合的数据 推送到新数组中
+                        if (this.list[l].airline.indexOf(this.airlineFiltrate[i]) > -1) {
+                            this.filtrateSucceed.push(this.list[l])
+                        }
+                    }
+                }
+                // 筛选之后的数组赋值给原数组
+                this.flightList = this.filtrateSucceed
             }
         }
     }
+}
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .flight-item
         margin-bottom: .1rem
         background: #fff
@@ -136,81 +206,81 @@
                 color: #fff
                 background: #FF6058
 
-    .airport-info
-        width: 1.85rem
-        margin-top: .2rem
+        .airport-info
+            width: 1.85rem
+            margin-top: .2rem
 
-        .airport-date
-            font-size: .4rem
+            .airport-date
+                font-size: .4rem
 
-        .airport-city
-            color: #999
-            margin-top: .12rem
+            .airport-city
+                color: #999
+                margin-top: .12rem
 
-    .airport-transit
-        width: 1.35rem
-        position: relative
-        line-height: .55rem
-
-        div
-            height: .55rem
-            width: 100%
-
-        .icon-arrow-line
+        .airport-transit
             width: 1.35rem
-            position: absolute
-            left: 0
-            top: 46%
-
-        .icon-arrow-line:before
-            content: ''
-            position: absolute
-            left: 0
-            top: 0
-            width: 1.35rem
-            height: 1px
-            background: #ccc
-
-        .icon-arrow-line:after
-            content: ''
-            position: absolute
-            right: -1px
-            bottom: -1px
-            width: 0
-            height: 0
-            border-style: solid
-            border-width: .07rem .07rem .07rem 0
-            border-color: transparent transparent #ccc
-
-        .discount
-            width: 1.76rem
-            padding-left: .1rem
-
-            .flight-price
-                color: #FF0202
-                font-size: .3rem
-                width: 1.76rem
-                margin: 0
-
-                span
-                    font-size: .4rem
+            position: relative
+            line-height: .55rem
 
             div
-                margin-right: -.1rem
+                height: .55rem
+                width: 100%
 
-        .remark
-            padding: .23rem 0 .3rem .4rem
-            border-top: .01rem solid #E5E5E5
-            margin-top: .25rem
-            position: relative
-
-            i
+            .icon-arrow-line
+                width: 1.35rem
                 position: absolute
                 left: 0
-                top: .25rem
+                top: 46%
 
-            span
-                color: #248FED
+            .icon-arrow-line:before
+                content: ''
+                position: absolute
+                left: 0
+                top: 0
+                width: 1.35rem
+                height: 1px
+                background: #ccc
+
+            .icon-arrow-line:after
+                content: ''
+                position: absolute
+                right: -1px
+                bottom: -1px
+                width: 0
+                height: 0
+                border-style: solid
+                border-width: .1rem .1rem .1rem 0
+                border-color: transparent transparent #ccc
+
+            .discount
+                width: 1.76rem
+                padding-left: .1rem
+
+                .flight-price
+                    color: #FF0202
+                    font-size: .3rem
+                    width: 1.76rem
+                    margin: 0
+
+                    span
+                        font-size: .4rem
+
+                div
+                    margin-right: -.1rem
+
+    .remark
+        padding: .23rem 0 .3rem .4rem
+        border-top: .01rem solid #E5E5E5
+        margin-top: .25rem
+        position: relative
+
+        i
+            position: absolute
+            left: 0
+            top: .25rem
+
+        span
+            color: #248FED
 
     .flight-date {
         padding: .2rem .34rem;

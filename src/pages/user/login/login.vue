@@ -54,7 +54,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .main
         background: url("login-bg.png") no-repeat
         height: 100%

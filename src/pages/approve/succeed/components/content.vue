@@ -23,7 +23,7 @@
     }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .succeed {
         padding: .75rem 0;
         font-size: .3rem;

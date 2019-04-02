@@ -7,8 +7,8 @@
         <div class="flight-date clearfix">
             出发日期：2018年8月24日
             <ul class="tax text-center pull-right">
-                <li class="pull-left" :class="{ active: isActive}" @click="taxCut">含税价</li>
-                <li class="pull-left" :class="{ active: hasActive}" @click="taxCut">不含税</li>
+                <li class="pull-left" :class="{ active: isActive}" @click="taxCut(true)">含税价</li>
+                <li class="pull-left" :class="{ active: hasActive}" @click="taxCut(false)">不含税</li>
             </ul>
         </div>
         <div class="standard-pop" v-if="standard" @click="handStandardHide">
@@ -21,34 +21,40 @@
 </template>
 
 <script>
-    export default {
-        name: 'ListInfo',
-        props: {
-            list: Array
+export default {
+    name: 'ListInfo',
+    props: {
+        list: Array
+    },
+    data () {
+        return {
+            standard: false,
+            isActive: true,
+            hasActive: false
+        }
+    },
+    methods: {
+        handStandardShow () {
+            this.standard = true
         },
-        data () {
-            return {
-                standard: false,
-                isActive: true,
-                hasActive: false
-            }
+        handStandardHide () {
+            this.standard = false
         },
-        methods: {
-            handStandardShow () {
-                this.standard = true
-            },
-            handStandardHide () {
-                this.standard = false
-            },
-            taxCut () {
-                this.isActive = this.isActive ? false : true
-                this.hasActive = this.hasActive ? false : true
+        taxCut (is) {
+            if(is) {
+                this.isActive = true
+                this.hasActive = false
+            } else {
+                this.isActive = false
+                this.hasActive = true
             }
+            this.$emit('change', is)
         }
     }
+}
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" type="text/stylus" scoped>
     .flight-info
         background-color: #fff
         padding: 0 .34rem
@@ -102,6 +108,7 @@
                 color: #fff
                 background: #258FED
                 font-size: .26rem
+
     .standard-pop
         background: rgba(0, 0, 0, .5)
         position: fixed
