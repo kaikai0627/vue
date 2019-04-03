@@ -44,9 +44,16 @@ export default {
         handGoAdd () {
             this.$router.push({path: '/airtitcket/passenger'})
         },
+        // 删除乘机人
         deleteItem (id) {
             this.linkman.splice(id, 1)
             this.$emit('change', this.linkman)
+            this.$router.push({
+                name: 'Book',
+                query: {
+                    linkman: this.linkman
+                }
+            })
         }
     },
     watch: {

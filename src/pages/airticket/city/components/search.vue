@@ -53,11 +53,9 @@ import Bscroll from 'better-scroll'
 
 export default {
     name: 'CitySearch',
-    mounted () {
-        this.scroll = new Bscroll(this.$refs.search)
-    },
     props: {
-        city: String,
+        city: String,           //选中的城市
+        triggerCity: Boolean,   //判断是否点击了城市
         isActive: Boolean,
         delActive: Boolean,
         letterList: Object
@@ -72,17 +70,38 @@ export default {
             showList: false
         }
     },
+    // 页面加载完成
+    mounted () {
+        this.scroll = new Bscroll(this.$refs.search)
+        // 根据接收的的参数判断点击的是出发城市还是到达城市 1 为出发城市
+        let is = this.$route.query.type
+        if (is == 1) {
+            this.onActive = false
+            this.cloneActive = true
+        }
+        // 把出发、到达城市的value传递给父元素
+        this.submitCity()
+    },
     computed: {
         hasNoData () {
             return !this.keywordList.length
         }
     },
     watch: {
-        city () {
+        // 监听城市改变 改变input的值与选中状态
+        triggerCity () {
             if (this.onActive) {
-                this.depart = this.city
+                if (this.city == this.arrive) {
+                    alert('到达城市不能与出发城市相同')
+                } else {
+                    this.depart = this.city
+                }
             } else {
-                this.arrive = this.city
+                if (this.city == this.depart) {
+                    alert('出发城市不能与到达城市相同')
+                } else {
+                    this.arrive = this.city
+                }
             }
             this.onActive = false
             this.cloneActive = true
@@ -95,6 +114,10 @@ export default {
         }
     },
     methods: {
+        submitCity () {
+            this.$emit('change', this.depart)
+            this.$emit('changes', this.arrive)
+        },
         exchange () {
             const depart = this.depart
             const arrive = this.arrive
@@ -107,9 +130,17 @@ export default {
         },
         itemCity (city) {
             if (this.onActive) {
-                this.depart = city
+                if (city == this.arrive) {
+                    alert('到达城市不能与出发城市相同')
+                } else {
+                    this.depart = city
+                }
             } else {
-                this.arrive = city
+                if (city == this.depart) {
+                    alert('出发城市不能与到达城市相同')
+                } else {
+                    this.arrive = city
+                }
             }
             this.showList = false
             this.keywordList = []

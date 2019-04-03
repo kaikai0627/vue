@@ -6,6 +6,7 @@
         >
         </city-header>
         <city-search :city="city"
+                     :triggerCity="triggerCity"
                      :letterList="cities"
                      :isActive="isActive"
                      :delActive="delActive"
@@ -16,7 +17,7 @@
         </city-search>
         <city-list :hotList="hotCities"
                    :letterList="cities"
-                   @chang="handListChang"
+                   @change="handListChang"
         >
         </city-list>
     </div>
@@ -40,6 +41,7 @@
                 hotCities: [],
                 cities: {},
                 city: '',
+                triggerCity: false,
                 isActive: true,
                 delActive: false,
                 depart: '',
@@ -60,11 +62,12 @@
                 }
             },
             handListChang(city) {
+                this.triggerCity = !this.triggerCity
                 this.city = city
                 this.isActive = false
                 this.delActive = true
                 this.$refs.childSearch.$refs.arrive.focus()//通过ref获取子组件的input
-                // this.$store.commit("changeCity",city)
+
             },
             handChang(city) {
                 alert(city)

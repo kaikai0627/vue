@@ -42,43 +42,39 @@ export default {
                 'insurancePrice': 20
             },
             totalPrice: null,       //总价
-            numberPeople: null      //人数
+            numberPeople: null,      //人数
         }
     },
     methods: {
-        // 删除乘机人
+        // 删除乘机人之后重新计算价格
         changeLinkman (item) {
-            this.linkmanDelete = item
             this.countPrice(item.length)
         },
         loadLinkman () {
-            let linkman
-            console.log(this.linkmanDelete)
-            // 判断一下有没有执行删除操作 需要使用cookie记录 尚未完成
-            if (this.linkmanDelete != '') {
-                linkman = this.linkmanDelete
-                console.log(this.linkmanDelete)
-            } else {
-                // 接受乘机人列表传递过来的参数 保存为数组 ['目前接收的是str','str','str']
+            if (this.$route.query.linkman) {
+                let linkman = []
+                // 未删除时接收乘机人列表传递过来的参数 保存为数组 ['目前接收的是str','str','str']
                 linkman = this.$route.query.linkman
+                // console.log(linkman)
+                // 创建新数组 保存乘机人信息
+                var linkmanList = []
+                // 接收到的乘机人信息为字符串格式 循环数组['str','str','str'] 把数组中的每一项字符串分割为子数组[[],[],[]]
+                for (let i = 0; i < linkman.length; i++) {
+                    linkmanList.push(linkman[i].split(','))
+                }
+                //  处理之后的乘机人信息格式为[[],[],[]] 复制给data 传递给子组件 做view渲染
+                this.linkmanItem = linkmanList
+                this.countPrice(linkman.length)
             }
-            // 创建新数组 保存乘机人信息
-            var linkmanList = []
-            // 接收到的乘机人信息为字符串格式 循环数组['str','str','str'] 把数组中的每一项字符串分割为子数组[[],[],[]]
-            for (let i = 0; i < linkman.length; i++) {
-                linkmanList.push(linkman[i].split(','))
-            }
-            //  处理之后的乘机人信息格式为[[],[],[]] 复制给data 传递给子组件 做view渲染
-            this.linkmanItem = linkmanList
-            this.countPrice(linkman.length)
         },
-        countPrice (linkman) {
+        // 计算总价
+        countPrice (how) {
             let total = (this.costList.airPrice +
                     this.costList.constructionPrice +
                     this.costList.servePrice +
                     this.costList.insurancePrice
-            ) * linkman
-            this.numberPeople = linkman
+            ) * how
+            this.numberPeople = how
             this.totalPrice = total
         }
     },

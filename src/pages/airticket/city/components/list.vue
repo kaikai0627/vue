@@ -46,44 +46,44 @@
 </template>
 
 <script>
-  import Bscroll from 'better-scroll'
+import Bscroll from 'better-scroll'
 
-  export default {
+export default {
     name: 'List',
     mounted () {
-      this.scroll = new Bscroll(this.$refs.wrapper)
+        this.scroll = new Bscroll(this.$refs.wrapper)
     },
     props: {
-      hotList: Array,
-      letterList: Object
+        hotList: Array,
+        letterList: Object
     },
     data () {
-      return {
-        letter: '',
-        show: false,
-        hide: true,
-        keyShow: '',
-        departA: this.depart
-      }
+        return {
+            letter: '',
+            show: false,
+            hide: true,
+            keyShow: '',
+            departA: this.depart
+        }
     },
     methods: {
-      checkedLetter (index) {
-        this.letter = index
-        this.show = true
-        this.hide = false
-        this.keyShow = index
-      },
-      hideCheck () {
-        this.hide = true
-        this.show = false
-        this.letter = ''
-        this.keyShow = ''
-      },
-      handCityClick (e) {
-        this.$emit('chang', e.target.innerText)
-      }
+        checkedLetter (index) {
+            this.letter = index
+            this.show = true
+            this.hide = false
+            this.keyShow = index
+        },
+        hideCheck () {
+            this.hide = true
+            this.show = false
+            this.letter = ''
+            this.keyShow = ''
+        },
+        handCityClick (e) {
+            this.$emit('change', e.target.innerText)
+        }
     }
-  }
+}
 </script>
 
 <style lang="stylus" type="text/stylus" scoped>

@@ -2,7 +2,7 @@
     <div class="search-content">
         <div class="search-form">
             <div class="clearfix">
-                <div class="search-item pull-left" @click="toCity">
+                <div class="search-item pull-left" @click="toCity(0)">
                     <span class="search-city">出发城市</span>
                     <input type="text"
                            :value="depart"
@@ -15,7 +15,7 @@
                 <div class="exchange text-center pull-left" @click="exchange">
                     <i class="iconfont icon-jiaohuan exchange-icon"></i>
                 </div>
-                <div class="search-item pull-left">
+                <div class="search-item pull-left" @click="toCity(1)">
                     <span class="search-city" style="right: 0;">到达城市</span>
                     <input type="text"
                            :value="arrive"
@@ -109,8 +109,13 @@
                 this.space = e.target.innerText
             },
             // 跳转城市列表
-            toCity() {
-                this.$router.push({path: '/airtitcket/city'})
+            toCity (is) {
+                this.$router.push({
+                    path: '/airtitcket/city',
+                    query: {
+                        type: is
+                    }
+                })
             },
             // 跳转航班查询结果
             toList() {
