@@ -1,5 +1,7 @@
 let defaultDepart = '上海'
 let defaultArrive = '深圳'
+let defaultGoDate = '深圳'
+let defaultBackDate = '深圳'
 try {
 	if (localStorage.depart) {
 		defaultDepart = localStorage.depart

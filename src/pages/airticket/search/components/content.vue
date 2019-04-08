@@ -28,15 +28,14 @@
         </div>
         <div class="search-form">
             <div class="clearfix">
-                <div class="search-item pull-left" style="border: none;">
+                <div class="search-item pull-left" @click="toDate(0)" style="border: none;">
                     <span class="search-city">去程</span>
-                    <input type="text" value="08月24日" class="search-ipt" autocomplete="off" readonly>
-                    <input type="hidden" :value="goDate">
+                    <input type="text" :value="goDate" class="search-ipt" autocomplete="off" readonly>
                 </div>
                 <div class="exchange text-center pull-left"></div>
-                <div class="search-item pull-left" style="border: none;">
+                <div class="search-item pull-left" @click="toDate(1)" style="border: none;">
                     <span class="search-city" style="right: 0;">回程</span>
-                    <input type="text" value="09月1日" autocomplete="off" class="search-ipt text-right" readonly>
+                    <input type="text" :value="backDate" autocomplete="off" class="search-ipt text-right" readonly>
                 </div>
             </div>
         </div>
@@ -72,88 +71,141 @@
 </template>
 
 <script>
-    export default {
-        name: 'SearchContent',
-        data() {
-            return {
-                depart: this.$store.state.depart,
-                arrive: this.$store.state.arrive,
-                departCode: 'CAN',
-                arriveCode: 'SHA',
-                goDate: '2019-03-20',
-                chooseContent: false,
-                item: true,
-                isActive: 0,
-                space: '不限舱位'
+export default {
+    name: 'SearchContent',
+    data () {
+        return {
+            depart: this.$store.state.depart,
+            arrive: this.$store.state.arrive,
+            departCode: 'CAN',
+            arriveCode: 'SHA',
+            goDate: null,
+            backDate: null,
+            chooseContent: false,
+            item: true,
+            isActive: 0,
+            space: '不限舱位'
+        }
+    },
+    mounted () {
+        // 默认日期
+        let defaultDate = new Date()
+        //这个不知道为啥 new Date()获取的是本月 提取月的时候就变成了上个月 所以+1
+        var month = defaultDate.getMonth() + 1
+        //默认是今天
+        var day = defaultDate.getDate()
+        if (month < 10) {
+            month = '0' + month
+        }
+        if (day) {
+            day = '0' + day
+        }
+        this.goDate = month + '月' + day + '日'
+        // 如果cookie里有选择过的时间 就从cookie中取
+        try {
+            if (localStorage.storeGoDate) {
+                this.goDate = localStorage.storeGoDate
             }
+            if (localStorage.storeBackDate) {
+                this.backDate = localStorage.storeBackDate
+            }
+        } catch (e) {}
+        // 根据页面参数修改日期
+        if (this.$route.query.goDate) {
+            var goDate = this.$route.query.goDate
+            // 接收的参数格式为yyyy-mm-dd 截取月和日修改为mm月dd日
+            var amendMonth = goDate.slice(5, 7)
+            var amendDay = goDate.slice(8, 10)
+            this.goDate = amendMonth + '月' + amendDay + '日'
+            try {
+                localStorage.storeGoDate = this.goDate
+            } catch (e) {}
+        }
+        if (this.$route.query.backDate) {
+            var backDate = this.$route.query.backDate
+            // 接收的参数格式为yyyy-mm-dd 截取月和日修改为mm月dd日
+            var amendBackMonth = backDate.slice(5, 7)
+            var amendBackDay = backDate.slice(8, 10)
+            this.backDate = amendBackMonth + '月' + amendBackDay + '日'
+            try {
+                localStorage.storeBackDate = this.backDate
+            } catch (e) {}
+
+        }
+    },
+    methods: {
+        // 交换出发到达城市的值
+        exchange () {
+            const depart = this.depart
+            const arrive = this.arrive
+            this.depart = arrive
+            this.arrive = depart
         },
-        methods: {
-            // 交换出发到达城市的值
-            exchange() {
-                const depart = this.depart
-                const arrive = this.arrive
-                this.depart = arrive
-                this.arrive = depart
-            },
-            //选择舱位弹框
-            openChoose() {
-                this.chooseContent = true
-            },
-            closeChoose() {
-                this.chooseContent = false
-            },
-            // 选择舱位
-            cutChoose(index, e) {
-                this.isActive = index
-                this.chooseContent = false
-                this.space = e.target.innerText
-            },
-            // 跳转城市列表
-            toCity (is) {
-                this.$router.push({
-                    path: '/airtitcket/city',
-                    query: {
-                        type: is
-                    }
-                })
-            },
-            // 跳转航班查询结果
-            toList() {
-            },
-            //航班查询
-            submitFlight() {
-                // this.$axios({
-                //     url: 'http://apitest.lantutong.com/api/b2r/demosticair/searchDomesticFlight.htm',
-                //     method: 'post',
-                //     headers: {
-                //         'Content-Type': 'application/json;charset=utf-8'
-                //     },
-                //     data: JSON.stringify({
-                //         func: 'query',
-                //         param: {
-                //             "userName": "test188",
-                //             "key": "39FDDEA928F05F6EF76",
-                //             "departCityCode": this.departCode,
-                //             "arrivalCityCode": this.arriveCode,
-                //             "departDate": this.goDate,
-                //             "sign": this.$md5(
-                //                 "userName",
-                //                 "key",
-                //                 "departCityCode",
-                //                 "arrivalCityCode",
-                //                 "departDate"
-                //             )
-                //         }
-                //     })
-                // }).then((res) => {
-                //     alert(res)
-                // })
-
-                this.$router.push({path: '/airtitcket/list'})
-
-            }
+        toDate (type) {
+            this.$router.push({
+                name: 'Date',
+                query: {
+                    type
+                }
+            })
+        },
+        //选择舱位弹框
+        openChoose () {
+            this.chooseContent = true
+        },
+        closeChoose () {
+            this.chooseContent = false
+        },
+        // 选择舱位
+        cutChoose (index, e) {
+            this.isActive = index
+            this.chooseContent = false
+            this.space = e.target.innerText
+        },
+        // 跳转城市列表
+        toCity (is) {
+            this.$router.push({
+                path: '/airtitcket/city',
+                query: {
+                    type: is
+                }
+            })
+        },
+        // 跳转航班查询结果
+        toList () {
+        },
+        //航班查询
+        submitFlight () {
+            // this.$axios({
+            //     url: 'http://apitest.lantutong.com/api/b2r/demosticair/searchDomesticFlight.htm',
+            //     method: 'post',
+            //     headers: {
+            //         'Content-Type': 'application/json;charset=utf-8'
+            //     },
+            //     data: JSON.stringify({
+            //         func: 'query',
+            //         param: {
+            //             "userName": "test188",
+            //             "key": "39FDDEA928F05F6EF76",
+            //             "departCityCode": this.departCode,
+            //             "arrivalCityCode": this.arriveCode,
+            //             "departDate": this.goDate,
+            //             "sign": this.$md5(
+            //                 "userName",
+            //                 "key",
+            //                 "departCityCode",
+            //                 "arrivalCityCode",
+            //                 "departDate"
+            //             )
+            //         }
+            //     })
+            // }).then((res) => {
+            //     alert(res)
+            // })
+            this.$router.push({path: '/airtitcket/list'})
         }
     }
+}
 </script>
 
 <style lang="stylus" type="text/stylus" scoped>

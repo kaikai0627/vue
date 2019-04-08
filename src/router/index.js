@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/home/home'
 import Search from '@/pages/airticket/search/search'
+import Date from '@/pages/airticket/date/date'
 import City from '@/pages/airticket/city/city'
 import List from '@/pages/airticket/list/airList'
 import Login from '@/pages/user/login/login'
@@ -42,6 +43,11 @@ export default new Router({
         meta:{index:1},
         name: 'Search',
         component: Search
+    }, {
+        path: '/airtitcket/date',
+        meta:{index:2},
+        name: 'Date',
+        component: Date
     }, {
         path: '/airtitcket/city',
         meta:{index:2},
