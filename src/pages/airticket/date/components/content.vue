@@ -153,8 +153,7 @@ export default {
             if (day < 10) { // 天数不足两位 前面补0
                 day = '0' + day
             }
-            var chooseCopyDay = year.toString() + month.toString() + day.toString() //保存已选择天 格式为20190407 用作于判断选择天 是否正确
-            let compare = year + month + day
+            let compare = year + month + day  //保存已选择天 格式为20190407
             // 1代表是返程 0代表去程
             if (this.$route.query.type == 1) {
                 if (Number(compare) < Number(localStorage.storeCopyGoSelectedDay)) {
@@ -170,7 +169,7 @@ export default {
                     this.selectedBackDay = chooseDay
                     try {
                         localStorage.storeBackSelectedDay = chooseDay
-                        localStorage.storeCopyBackSelectedDay = chooseCopyDay
+                        localStorage.storeCopyBackSelectedDay = compare
                     } catch (e) {
                     }
                 }
@@ -189,7 +188,7 @@ export default {
                     this.todayActive = false
                     try {
                         localStorage.storeGoSelectedDay = chooseDay
-                        localStorage.storeCopyGoSelectedDay = chooseCopyDay
+                        localStorage.storeCopyGoSelectedDay = compare
                         localStorage.storeDefalutDay = false
                     } catch (e) {
                     }

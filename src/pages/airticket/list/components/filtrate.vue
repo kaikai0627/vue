@@ -140,6 +140,7 @@ export default {
         // 筛选 使用emit把选中的条件传给父组件
         handleFiltrate () {
             this.$emit("filtrate",this.checkedAirline)
+            this.filtratePopHide()
         },
         // 清空筛选
         clearFiltrate () {

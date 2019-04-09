@@ -35,6 +35,9 @@
                 <div class="exchange text-center pull-left"></div>
                 <div class="search-item pull-left" @click="toDate(1)" style="border: none;">
                     <span class="search-city" style="right: 0;">回程</span>
+                    <span class="clear-back" v-if="backDate != null" @click.stop @click="handleClearBack">
+                        <i class="iconfont icon-cha"></i>
+                    </span>
                     <input type="text" :value="backDate" autocomplete="off" class="search-ipt text-right" readonly>
                 </div>
             </div>
@@ -109,7 +112,8 @@ export default {
             if (localStorage.storeBackDate) {
                 this.backDate = localStorage.storeBackDate
             }
-        } catch (e) {}
+        } catch (e) {
+        }
         // 根据页面参数修改日期
         if (this.$route.query.goDate) {
             var goDate = this.$route.query.goDate
@@ -119,7 +123,8 @@ export default {
             this.goDate = amendMonth + '月' + amendDay + '日'
             try {
                 localStorage.storeGoDate = this.goDate
-            } catch (e) {}
+            } catch (e) {
+            }
         }
         if (this.$route.query.backDate) {
             var backDate = this.$route.query.backDate
@@ -129,7 +134,8 @@ export default {
             this.backDate = amendBackMonth + '月' + amendBackDay + '日'
             try {
                 localStorage.storeBackDate = this.backDate
-            } catch (e) {}
+            } catch (e) {
+            }
 
         }
     },
@@ -148,6 +154,21 @@ export default {
                     type
                 }
             })
+        },
+        // 清除回程时间
+        handleClearBack () {
+            this.backDate = null
+            if (this.$route.query.backDate) {
+                this.$router.push({
+                    path: "/airtitcket/search",
+                })
+            }
+            try {
+                localStorage.storeBackDate = ""
+                localStorage.storeBackSelectedDay = null
+                localStorage.storeCopyBackSelectedDay = null
+            } catch (e) {
+            }
         },
         //选择舱位弹框
         openChoose () {
@@ -202,7 +223,23 @@ export default {
             // }).then((res) => {
             //     alert(res)
             // })
-            this.$router.push({path: '/airtitcket/list'})
+            this.$router.push({
+                path: '/airtitcket/list',
+                query: {
+                    // 'userName': 'test188',
+                    // 'key': '39FDDEA928F05F6EF76',
+                    'departCityCode': this.departCode,
+                    'arrivalCityCode': this.arriveCode,
+                    'departDate': this.goDate,
+                    'sign': this.$md5(
+                            // 'userName',
+                            // 'key',
+                            'departCityCode',
+                            'arrivalCityCode',
+                            'departDate'
+                    )
+                }
+            })
         }
     }
 }
@@ -220,17 +257,32 @@ export default {
             border-bottom: 1px solid #E5E5E5
             position: relative
 
-            .search-city
-                position: absolute
-                color: #999
-                font-size: .22rem
-                top: .35rem
 
-            .search-ipt
-                width: 100%
-                height: 100%
-                font-size: .36rem
-                padding-top: .6rem
+        .clear-back
+            position: absolute
+            left: 0
+            bottom: 0
+            padding-bottom: .25rem
+            padding-top: .25rem
+            display: block
+            width: 1rem
+            text-align: center
+
+            i {
+                font-size: .4rem
+            }
+
+        .search-city
+            position: absolute
+            color: #999
+            font-size: .22rem
+            top: .35rem
+
+        .search-ipt
+            width: 100%
+            height: 100%
+            font-size: .36rem
+            padding-top: .6rem
 
         .exchange
             width: .8rem

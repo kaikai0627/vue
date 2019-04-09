@@ -1,18 +1,20 @@
 <template>
     <div class="main">
         <airList-header></airList-header>
-        <airList-info :list="airList" @change="changeTax"></airList-info>
-        <airList-content
-                :list="airList"
-                :whether="whether"
-                :airlineFiltrate="airlineFiltrate"
+        <airList-info :list="airList"
+                      :count="count"
+                      @change="changeTax"
         >
-
+        </airList-info>
+        <airList-content :list="airList"
+                         :whether="whether"
+                         :airlineFiltrate="airlineFiltrate"
+                         @change="itemLength"
+        >
         </airList-content>
-        <airList-filtrate
-                :list="airList"
-                @change="handChangList"
-                @filtrate="checkedCondition"
+        <airList-filtrate :list="airList"
+                          @change="handChangList"
+                          @filtrate="checkedCondition"
         >
         </airList-filtrate>
     </div>
@@ -43,6 +45,7 @@ export default {
             flightNo: this.$route.query.flightNo,//航班号
             whether: true,  //显示含税价 不含税价
             airlineFiltrate: [],    //航司筛选
+            count: null
         }
     },
     methods: {
@@ -67,9 +70,9 @@ export default {
         // this.$axios.post('http://op.juhe.cn/flight/df/fs', data).then((res) => {
         //     console.log(res)
         // })
-
         // },
         getListInfo () {
+            console.log(this.$route.query)
             this.$axios.get('/api/airList.json')
                     .then(this.getListInfoSucc)
         },
@@ -90,6 +93,9 @@ export default {
         // 航班筛选 选中的数组传给子组件航班结果集做处理
         checkedCondition (airline) {
             this.airlineFiltrate = airline
+        },
+        itemLength (number) {
+            this.count = number
         }
     },
     mounted () {

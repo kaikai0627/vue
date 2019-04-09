@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flight-info">
-            上海-深圳&nbsp;<span class="amount">共{{list.length}}个航班信息</span>
+            上海-深圳&nbsp;<span class="amount">共{{count}}个航班信息</span>
             <span class="standard pull-right" @click="handStandardShow">差旅标准</span>
         </div>
         <div class="flight-date clearfix">
@@ -24,7 +24,8 @@
 export default {
     name: 'ListInfo',
     props: {
-        list: Array
+        list: Array,
+        count: Number
     },
     data () {
         return {

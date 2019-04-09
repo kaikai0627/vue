@@ -1,69 +1,73 @@
 <template>
     <div>
-        <div v-if="list.length >= 1">
-            <div v-if="taxWhether">
-                <div class="flight-item"
-                     v-for="item of flightList"
-                     :key="item.id"
-                     v-if="item.tax"
-                     @click="handToFlight(item.link)"
-                >
-                    <div class="text-right benefit">
-                        <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
-                    </div>
-                    <div class="clearfix">
-                        <div class="airport-info pull-left">
-                            <div class="airport-date">{{item.begDate}}</div>
-                            <div class="airport-city">{{item.begCity}}</div>
+        <template v-if="list.length >= 1">
+            <div ref="item_number">
+                <template v-if="taxWhether">
+                    <div class="flight-item"
+                         v-for="item of flightList"
+                         :key="item.id"
+                         v-if="item.tax"
+                         @click="handToFlight(item.link)"
+                    >
+                        <div class="text-right benefit">
+                            <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
                         </div>
-                        <div class="airport-transit text-center pull-left">
-                            <div>中转</div>
-                            <i class="icon-arrow-line"></i>
-                            <div>长沙</div>
+                        <div class="clearfix">
+                            <div class="airport-info pull-left">
+                                <div class="airport-date">{{item.begDate}}</div>
+                                <div class="airport-city">{{item.begCity}}</div>
+                            </div>
+                            <div class="airport-transit text-center pull-left">
+                                <div>中转</div>
+                                <i class="icon-arrow-line"></i>
+                                <div>长沙</div>
+                            </div>
+                            <div class="airport-info text-right pull-left">
+                                <div class="airport-date">{{item.endDate}}</div>
+                                <div class="airport-city">{{item.endCity}}</div>
+                            </div>
+                            <div class="discount pull-left text-center">
+                                <div class="flight-price">&yen;<span>{{item.price}}</span></div>
+                                <div>会员价{{item.discount}}折</div>
+                            </div>
                         </div>
-                        <div class="airport-info text-right pull-left">
-                            <div class="airport-date">{{item.endDate}}</div>
-                            <div class="airport-city">{{item.endCity}}</div>
-                        </div>
-                        <div class="discount pull-left text-center">
-                            <div class="flight-price">&yen;<span>{{item.price}}</span></div>
-                            <div>会员价{{item.discount}}折</div>
-                        </div>
-                    </div>
-                    <div class="remark"><i class="pf pf_cz"></i>{{item.airline}}&nbsp;MU5331&nbsp;330大&nbsp;有餐食</div>
-                </div>
-            </div>
-            <div v-else>
-                <div class="flight-item"
-                     v-for="item of list"
-                     :key="item.id"
-                     v-if="item.tax == false"
-                     @click="handToFlight(item.link)"
-                >
-                    <div class="text-right benefit">
-                        <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
-                    </div>
-                    <div class="clearfix">
-                        <div class="airport-info pull-left">
-                            <div class="airport-date">{{item.begDate}}</div>
-                            <div class="airport-city">{{item.begCity}}</div>
-                        </div>
-                        <div class="airport-transit text-center pull-left">
-                            <div>中转</div>
-                            <i class="icon-arrow-line"></i>
-                            <div>长沙</div>
-                        </div>
-                        <div class="airport-info text-right pull-left">
-                            <div class="airport-date">{{item.endDate}}</div>
-                            <div class="airport-city">{{item.endCity}}</div>
-                        </div>
-                        <div class="discount pull-left text-center">
-                            <div class="flight-price">&yen;<span>{{item.price}}</span></div>
-                            <div>往返价{{item.discount}}折</div>
+                        <div class="remark"><i class="pf pf_cz"></i>{{item.airline}}&nbsp;MU5331&nbsp;330大&nbsp;有餐食
                         </div>
                     </div>
-                    <div class="remark"><i class="pf pf_cz"></i>{{item.airline}}&nbsp;MU5331&nbsp;330大&nbsp;有餐食</div>
-                </div>
+                </template>
+                <template v-else>
+                    <div class="flight-item"
+                         v-for="item of list"
+                         :key="item.id"
+                         v-if="item.tax == false"
+                         @click="handToFlight(item.link)"
+                    >
+                        <div class="text-right benefit">
+                            <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
+                        </div>
+                        <div class="clearfix">
+                            <div class="airport-info pull-left">
+                                <div class="airport-date">{{item.begDate}}</div>
+                                <div class="airport-city">{{item.begCity}}</div>
+                            </div>
+                            <div class="airport-transit text-center pull-left">
+                                <div>中转</div>
+                                <i class="icon-arrow-line"></i>
+                                <div>长沙</div>
+                            </div>
+                            <div class="airport-info text-right pull-left">
+                                <div class="airport-date">{{item.endDate}}</div>
+                                <div class="airport-city">{{item.endCity}}</div>
+                            </div>
+                            <div class="discount pull-left text-center">
+                                <div class="flight-price">&yen;<span>{{item.price}}</span></div>
+                                <div>往返价{{item.discount}}折</div>
+                            </div>
+                        </div>
+                        <div class="remark"><i class="pf pf_cz"></i>{{item.airline}}&nbsp;MU5331&nbsp;330大&nbsp;有餐食
+                        </div>
+                    </div>
+                </template>
             </div>
             <div class="flight-date clearfix" v-if="list.length >= 1">
                 筛选合适的航班时间
@@ -125,7 +129,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </template>
         <div class="no-flight text-center" v-else>
             <img src="~images/no_result.png" alt="">
 
@@ -149,18 +153,29 @@ export default {
         return {
             taxWhether: true,
             flightList: [],
-            filtrateSucceed: []
+            filtrateSucceed: [],
+            count: null
+
         }
     },
     methods: {
         handToFlight (url) {
             this.$router.push(url)
+        },
+        // 获取航班条数
+        _getItemLength () {
+            let children = this.$refs.item_number.children
+            this.count = children.length
+            this.$emit("change", this.count)
         }
     },
     watch: {
         // 监听组件传过来的参数
         whether () {
             this.taxWhether = this.whether
+            setTimeout(() => {
+                this._getItemLength()
+            }, 20)
         },
         list () {
             this.flightList = this.list
@@ -182,8 +197,18 @@ export default {
                 }
                 // 筛选之后的数组赋值给原数组
                 this.flightList = this.filtrateSucceed
+            } else {
+                this.flightList = this.list
             }
+            setTimeout(() => {
+                this._getItemLength()
+            }, 20)
         }
+    },
+    mounted () {
+        setTimeout(() => {
+            this._getItemLength()
+        }, 100)
     }
 }
 </script>
