@@ -5,7 +5,7 @@
             <span class="standard pull-right" @click="handStandardShow">差旅标准</span>
         </div>
         <div class="flight-date clearfix">
-            出发日期：2018年8月24日
+            出发日期：{{date}}
             <ul class="tax text-center pull-right">
                 <li class="pull-left" :class="{ active: isActive}" @click="taxCut(true)">含税价</li>
                 <li class="pull-left" :class="{ active: hasActive}" @click="taxCut(false)">不含税</li>
@@ -25,13 +25,15 @@ export default {
     name: 'ListInfo',
     props: {
         list: Array,
-        count: Number
+        count: Number,
+        startDate: String
     },
     data () {
         return {
             standard: false,
             isActive: true,
-            hasActive: false
+            hasActive: false,
+            date: null,
         }
     },
     methods: {
@@ -51,6 +53,14 @@ export default {
             }
             this.$emit('change', is)
         }
+    },
+    mounted () {
+        // 获取查询的出发时间 拼接成yyyy年mm月dd日格式
+        let date = this.startDate
+        let year = date.substring(0,4)
+        let month = date.substring(5,7)
+        let day = date.substring(8,10)
+        this.date = year + '年' + month + '月' + day + '日'
     }
 }
 </script>

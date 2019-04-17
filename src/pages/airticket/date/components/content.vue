@@ -201,14 +201,6 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" scoped>
-
-    #calendar {
-        width: 98%;
-        border: 2px solid #A4A7B0;
-        height: 335px;
-        margin-left: 0.5%;
-    }
-
     .layer-header {
         position: fixed;
         top: .88rem;
@@ -284,6 +276,4 @@ export default {
     .history-day {
         color: #d0d0d0;
     }
-
-
 </style>

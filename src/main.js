@@ -30,3 +30,11 @@ new Vue({
     components: {App},
     template: '<App/>'
 })
+
+router.beforeEach((to, frim, next) => {
+    // 路由发生变化修改页面title
+    if (to.meta.title) {
+        document.title = to.meta.title
+    }
+    next()
+})

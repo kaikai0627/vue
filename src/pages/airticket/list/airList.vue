@@ -3,6 +3,7 @@
         <airList-header></airList-header>
         <airList-info :list="airList"
                       :count="count"
+                      :startDate="startDate"
                       @change="changeTax"
         >
         </airList-info>
@@ -45,7 +46,8 @@ export default {
             flightNo: this.$route.query.flightNo,//航班号
             whether: true,  //显示含税价 不含税价
             airlineFiltrate: [],    //航司筛选
-            count: null
+            count: null,
+            startDate: this.$route.query.goDate || null
         }
     },
     methods: {

@@ -83,6 +83,8 @@ export default {
             departCode: 'CAN',
             arriveCode: 'SHA',
             goDate: null,
+            submitGoDate: null,     // 去程时间参数提交到航班集合
+            submitBackDate: null,   // 回程时间参数提交到航班集合
             backDate: null,
             chooseContent: false,
             item: true,
@@ -93,10 +95,11 @@ export default {
     mounted () {
         // 默认日期
         let defaultDate = new Date()
+        let year = defaultDate.getFullYear()
         //这个不知道为啥 new Date()获取的是本月 提取月的时候就变成了上个月 所以+1
-        var month = defaultDate.getMonth() + 1
+        let month = defaultDate.getMonth() + 1
         //默认是今天
-        var day = defaultDate.getDate()
+        let day = defaultDate.getDate()
         if (month < 10) {
             month = '0' + month
         }
@@ -104,35 +107,46 @@ export default {
             day = '0' + day
         }
         this.goDate = month + '月' + day + '日'
+        this.submitGoDate = year + '-' + month + '-' + day
         // 如果cookie里有选择过的时间 就从cookie中取
         try {
+            if (localStorage.storeSubmitGoDate) {
+                this.submitGoDate = localStorage.storeSubmitGoDate
+            }
             if (localStorage.storeGoDate) {
                 this.goDate = localStorage.storeGoDate
             }
             if (localStorage.storeBackDate) {
                 this.backDate = localStorage.storeBackDate
             }
+            if (localStorage.storeSubmitBackDate) {
+                this.submitBackDate = localStorage.storeSubmitBackDate
+            }
         } catch (e) {
         }
         // 根据页面参数修改日期
         if (this.$route.query.goDate) {
-            var goDate = this.$route.query.goDate
+            let goDate = this.$route.query.goDate
+            this.submitGoDate = goDate
             // 接收的参数格式为yyyy-mm-dd 截取月和日修改为mm月dd日
-            var amendMonth = goDate.slice(5, 7)
-            var amendDay = goDate.slice(8, 10)
+            let amendMonth = goDate.slice(5, 7)
+            let amendDay = goDate.slice(8, 10)
             this.goDate = amendMonth + '月' + amendDay + '日'
             try {
-                localStorage.storeGoDate = this.goDate
+                localStorage.storeSubmitGoDate = goDate  //格式为yyyy-mm-dd
+                localStorage.storeGoDate = this.goDate   //格式为mm月dd日
             } catch (e) {
             }
         }
         if (this.$route.query.backDate) {
-            var backDate = this.$route.query.backDate
+            let backDate = this.$route.query.backDate
+            this.submitBackDate = backDate
             // 接收的参数格式为yyyy-mm-dd 截取月和日修改为mm月dd日
-            var amendBackMonth = backDate.slice(5, 7)
-            var amendBackDay = backDate.slice(8, 10)
+            let amendBackMonth = backDate.slice(5, 7)
+            let amendBackDay = backDate.slice(8, 10)
             this.backDate = amendBackMonth + '月' + amendBackDay + '日'
             try {
+                localStorage.storeSubmitBackDate = backDate
                 localStorage.storeBackDate = this.backDate
             } catch (e) {
             }
@@ -160,11 +174,12 @@ export default {
             this.backDate = null
             if (this.$route.query.backDate) {
                 this.$router.push({
-                    path: "/airtitcket/search",
+                    path: '/airtitcket/search'
                 })
             }
             try {
-                localStorage.storeBackDate = ""
+                localStorage.storeBackDate = ''
+                localStorage.storeSubmitBackDate = ''
                 localStorage.storeBackSelectedDay = null
                 localStorage.storeCopyBackSelectedDay = null
             } catch (e) {
@@ -191,9 +206,6 @@ export default {
                     type: is
                 }
             })
-        },
-        // 跳转航班查询结果
-        toList () {
         },
         //航班查询
         submitFlight () {
@@ -223,23 +235,37 @@ export default {
             // }).then((res) => {
             //     alert(res)
             // })
-            this.$router.push({
-                path: '/airtitcket/list',
-                query: {
-                    // 'userName': 'test188',
-                    // 'key': '39FDDEA928F05F6EF76',
-                    'departCityCode': this.departCode,
-                    'arrivalCityCode': this.arriveCode,
-                    'departDate': this.goDate,
-                    'sign': this.$md5(
-                            // 'userName',
-                            // 'key',
-                            'departCityCode',
-                            'arrivalCityCode',
-                            'departDate'
-                    )
-                }
-            })
+            if (localStorage.storeSubmitBackDate == "" || !localStorage.storeSubmitBackDate) {
+                // 去程
+                this.$router.push({
+                    path: '/airtitcket/list',
+                    query: {
+                        // 'userName': 'test188',
+                        // 'key': '39FDDEA928F05F6EF76',
+                        'departCityCode': this.departCode,
+                        'arrivalCityCode': this.arriveCode,
+                        'goDate': this.submitGoDate,
+                        // 'sign': this.$md5(
+                        // 'userName',
+                        // 'key',
+                        // 'departCityCode',
+                        // 'arrivalCityCode',
+                        // 'departDate'
+                        // )
+                    }
+                })
+            } else {
+                // 往返
+                this.$router.push({
+                    path: '/airtitcket/list',
+                    query: {
+                        'departCityCode': this.departCode,
+                        'arrivalCityCode': this.arriveCode,
+                        'goDate': this.submitGoDate,
+                        'backDate': this.submitBackDate,
+                    }
+                })
+            }
         }
     }
 }

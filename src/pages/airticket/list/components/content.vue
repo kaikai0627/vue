@@ -7,7 +7,7 @@
                          v-for="item of flightList"
                          :key="item.id"
                          v-if="item.tax"
-                         @click="handToFlight(item.link)"
+                         @click="handToFlight"
                     >
                         <div class="text-right benefit">
                             <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
@@ -40,7 +40,7 @@
                          v-for="item of list"
                          :key="item.id"
                          v-if="item.tax == false"
-                         @click="handToFlight(item.link)"
+                         @click="handToFlight"
                     >
                         <div class="text-right benefit">
                             <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分
@@ -154,20 +154,33 @@ export default {
             taxWhether: true,
             flightList: [],
             filtrateSucceed: [],
-            count: null
+            count: null,
+            backDate: this.$route.query.backDate || null
 
         }
     },
     methods: {
-        handToFlight (url) {
-            this.$router.push(url)
+        // 选择航班
+        handToFlight () {
+            if (this.$route.query.backDate) {
+                this.$router.push({
+                    path: '/airtitcket/backList',
+                    query: {
+                        backDate: this.backDate
+                    }
+                })
+            } else {
+                this.$router.push({
+                    path: '/airtitcket/chooseSpace'
+                })
+            }
         },
         // 获取航班条数
         _getItemLength () {
             let children = this.$refs.item_number.children
             this.count = children.length
-            this.$emit("change", this.count)
-        }
+            this.$emit('change', this.count)
+        },
     },
     watch: {
         // 监听组件传过来的参数
