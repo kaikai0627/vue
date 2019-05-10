@@ -17,7 +17,7 @@
             <!--</div>-->
         </div>
         <!--循环days 渲染12个月日历-->
-        <div class="days" v-for="(list,index) in days">
+        <div class="days" v-for="(list,index) in days" :key="index">
             <div class="year-month">{{viewYear[index]}}年{{viewMonth[index]}}月</div>
             <!--
                 循环list 把每一天渲染到day-item上 ,
@@ -25,7 +25,7 @@
                 selectedGoDay给去程选中的day添加active ,
                 selectedBackDay给回程选中的day添加active
              -->
-            <div class="day-item" v-for="(dayobject,id) in list"
+            <div class="day-item" v-for="(dayobject,id) in list" :key="id"
                  v-if="dayobject.day.getMonth()+1 == viewMonth[index]"
                  :class="{active: selectedGoDay == ((dayobject.day.getFullYear().toString())+
                  ((dayobject.day.getMonth() + 1).toString())+

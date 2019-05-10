@@ -4,9 +4,8 @@
             <div class="flight-item"
                  v-for="item of list"
                  :key="item.id"
-                 v-if="item.tax"
+                  v-if="item.tax"
                  @click="handClickShow"
-
             >
                 <div class="text-right benefit">
                     <span class="pull-left">{{item.type}}</span>{{item.sendCoupon}}&nbsp;送{{item.sendIntegrals}}积分

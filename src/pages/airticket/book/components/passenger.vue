@@ -9,7 +9,7 @@
                 添加
             </button>
         </div>
-        <div class="passenger-item" v-for="(item,index) in linkman">
+        <div class="passenger-item" v-for="(item,index) in linkman" :key="index">
             <div class="item-hd">{{item[0]}}&nbsp;<span>{{item[1]}}</span>
                 <span class="pull-right delete-passenger skin font_skin_themeColor" @click="deleteItem(index)">删除</span>
             </div>

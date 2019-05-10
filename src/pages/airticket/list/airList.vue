@@ -95,6 +95,8 @@ export default {
         // 航班筛选 选中的数组传给子组件航班结果集做处理
         checkedCondition (airline) {
             this.airlineFiltrate = airline
+            console.log(airline)
+            console.log(this.airlineFiltrate)
         },
         itemLength (number) {
             this.count = number

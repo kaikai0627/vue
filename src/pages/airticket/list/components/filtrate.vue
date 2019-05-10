@@ -33,7 +33,7 @@
                 <div class="filtrate-bd text-left">
                     <div class="filtrate-title">航空公司</div>
                     <div class="filtrate-list clearfix">
-                        <label v-for="item of airLineList">
+                        <label v-for="(item,key) of airLineList" :key="key">
                             <input type="checkbox" v-model="checkedAirline" class="hidden" :value="item">
                             <i class="my-icon-checkbox"></i>
                             {{item}}

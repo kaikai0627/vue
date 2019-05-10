@@ -1,6 +1,6 @@
 <template>
     <div class="discount-list">
-        <div v-for="item of list">
+        <div v-for="(item,key) of list" :key="key">
             <div class="discount-item clearfix" @click="toggleDetail(item)">
                 <div class="discount-lf text-center pull-left">
                     <div class="price">¥<span>{{item.price}}</span></div>

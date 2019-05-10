@@ -66,7 +66,8 @@
         <div class="choose-pop text-center" v-show="selectShow1" @click="selectShow1 = false">
             <div class="choose-content" @click.stop>
                 <div class="choose-item skin font_skin_themeColor_active"
-                     v-for="item of payList"
+                     v-for="(item,key) of payList"
+                     :key="key"
                      @click="chooseItem($event, item.id, 0)"
                      :class="{active: checked1 == item.id}"
                 >
@@ -77,7 +78,8 @@
         <div class="choose-pop text-center" v-show="selectShow2" @click="selectShow2 = false">
             <div class="choose-content" @click.stop>
                 <div class="choose-item skin font_skin_themeColor_active"
-                     v-for="item of chooseList"
+                     v-for="(item,key) of chooseList"
+                     :key="key"
                      @click="chooseItem($event, item.id, 1)"
                      :class="{active: checked2 == item.id}"
                 >
@@ -89,7 +91,8 @@
         <div class="choose-pop text-center" v-show="selectShow3" @click="selectShow3 = false">
             <div class="choose-content" @click.stop>
                 <div class="choose-item skin font_skin_themeColor_active"
-                     v-for="item of towChooseList"
+                     v-for="(item,key) of towChooseList"
+                     :key="key"
                      @click="chooseItem($event, item.id, 2)"
                      :class="{active: checked3 == item.id}"
                 >
