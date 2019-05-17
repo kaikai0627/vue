@@ -35,7 +35,7 @@
                     endDate: "2019-06-01",
                     code: "464564561",
                     isShow: true,
-                    isHide: false
+                    isHide: false    
                 }, {
                     price: "30",
                     beginDate: "2019-03-11",
