@@ -78,7 +78,7 @@ export default {
 			    display: inline-block
 			    width: .79rem
 			    height: .6rem
-			    background: url("./icon-02.png") no-repeat
+			    background: url("icon-02.png") no-repeat
 			    background-size: 2.95rem
 			    position: relative
 
